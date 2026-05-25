@@ -104,13 +104,13 @@ class Coordinator:
         print("\n[1/3] 代码分析Agent - 扫描代码库...")
         try:
             self.analysis_result = self.code_analyzer.analyze_project(project_path)
-            print(f"✓ 分析完成:")
+            print(f"[OK] 分析完成:")
             print(f"  - 扫描文件数: {self.analysis_result.total_files}")
             print(f"  - 代码总行数: {self.analysis_result.total_lines}")
             print(f"  - 发现问题数: {len(self.analysis_result.issues)}")
             print(f"  - 质量分数: {self.analysis_result.metrics.get('quality_score', 0)}")
         except Exception as e:
-            print(f"✗ 代码分析失败: {e}")
+            print(f"[ERROR] 代码分析失败: {e}")
             return {"error": str(e)}
 
         # 第二步：生成重构计划
@@ -134,12 +134,12 @@ class Coordinator:
             }
 
             self.refactor_plan = self.refactor_strategist.generate_refactor_plan(analysis_dict)
-            print(f"✓ 重构计划生成完成:")
+            print(f"[OK] 重构计划生成完成:")
             print(f"  - 重构建议数: {len(self.refactor_plan.suggestions)}")
             print(f"  - 总工作量: {self.refactor_plan.total_effort}")
             print(f"  - 预期质量提升: {self.refactor_plan.expected_improvement.get('improvement', 0)}分")
         except Exception as e:
-            print(f"✗ 生成重构计划失败: {e}")
+            print(f"[ERROR] 生成重构计划失败: {e}")
             return {"error": str(e)}
 
         # 第三步：执行重构（可选）
@@ -163,13 +163,13 @@ class Coordinator:
             }
 
             self.validation_report = self.executor.execute_refactor_plan(plan_dict)
-            print(f"✓ 执行完成:")
+            print(f"[OK] 执行完成:")
             print(f"  - 已执行: {self.validation_report.executed}")
             print(f"  - 成功: {self.validation_report.successful}")
             print(f"  - 失败: {self.validation_report.failed}")
             print(f"  - 跳过: {self.validation_report.skipped}")
         except Exception as e:
-            print(f"✗ 执行重构失败: {e}")
+            print(f"[ERROR] 执行重构失败: {e}")
             return {"error": str(e)}
 
         # 生成综合报告
