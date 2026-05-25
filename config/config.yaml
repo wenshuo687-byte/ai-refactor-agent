@@ -1,0 +1,63 @@
+# AI模型配置
+ai:
+  provider: "anthropic"  # anthropic 或 openai
+  model: "claude-sonnet-4-20250514"
+  api_key: "${ANTHROPIC_API_KEY}"  # 从环境变量读取
+  max_tokens: 4096
+  temperature: 0.3
+
+# 代码扫描配置
+scanner:
+  # 支持的文件类型
+  file_types:
+    - ".py"
+    - ".js"
+    - ".ts"
+    - ".java"
+    - ".go"
+
+  # 忽略的目录
+  ignore_dirs:
+    - "node_modules"
+    - "__pycache__"
+    - ".git"
+    - "venv"
+    - ".venv"
+
+  # 扫描深度
+  max_depth: 10
+
+# 代码质量阈值
+quality_thresholds:
+  # 圈复杂度阈值
+  cyclomatic_complexity: 10
+  # 函数行数阈值
+  function_lines: 50
+  # 文件行数阈值
+  file_lines: 500
+  # 重复代码行数阈值
+  duplicate_lines: 6
+  # 参数数量阈值
+  max_parameters: 5
+
+# 重构配置
+refactor:
+  # 自动运行测试
+  run_tests: true
+  # 测试命令
+  test_command: "pytest"
+  # 备份原文件
+  backup: true
+  # 备份目录
+  backup_dir: ".refactor_backup"
+
+# 报告配置
+report:
+  # 输出格式
+  format: "markdown"  # markdown, html, json
+  # 输出目录
+  output_dir: "reports"
+  # 包含代码片段
+  include_snippets: true
+  # 代码片段最大行数
+  snippet_lines: 20
